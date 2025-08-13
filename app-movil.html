@@ -93,6 +93,18 @@
             font-weight: bold;
             color: #666;
         }
+        .days-input {
+            display: flex;
+            align-items: center;
+        }
+        .days-input input {
+            flex: 1;
+            margin-right: 10px;
+        }
+        .days-input span {
+            font-weight: bold;
+            color: #666;
+        }
     </style>
 </head>
 <body>
@@ -112,19 +124,34 @@
                 </select>
             </div>
 
-            <!-- 2. Proyecto (se escribe) -->
+            <!-- 2. Número de proforma (nuevo campo) -->
+            <div class="form-group">
+                <label for="proforma">📋 Número de Proforma</label>
+                <input type="text" id="proforma" name="proforma" placeholder="Ingrese el número de proforma..." required>
+            </div>
+
+            <!-- 3. Proyecto (se escribe) -->
             <div class="form-group">
                 <label for="proyecto">🏗️ Proyecto</label>
                 <input type="text" id="proyecto" name="proyecto" placeholder="Ingrese el nombre del proyecto..." required>
             </div>
 
-            <!-- 3. Presupuesto de la Obra en $ (se escribe) -->
+            <!-- 4. Total de días de trabajo (nuevo campo) -->
+            <div class="form-group">
+                <label for="dias-trabajo">📅 Total de Días de Trabajo</label>
+                <div class="days-input">
+                    <input type="number" id="dias-trabajo" name="dias-trabajo" min="1" placeholder="0" required>
+                    <span>días</span>
+                </div>
+            </div>
+
+            <!-- 5. Presupuesto de la Obra en $ (se escribe) -->
             <div class="form-group">
                 <label for="presupuesto">💰 Presupuesto de la Obra ($)</label>
                 <input type="number" id="presupuesto" name="presupuesto" placeholder="0.00" step="0.01" min="0" required>
             </div>
 
-            <!-- 4. Tipo de informe (desplegable) -->
+            <!-- 6. Tipo de informe (desplegable) -->
             <div class="form-group">
                 <label for="tipo-informe">📄 Tipo de Informe</label>
                 <select id="tipo-informe" name="tipo-informe" required>
@@ -134,7 +161,7 @@
                 </select>
             </div>
 
-            <!-- 5. Registro Fotográfico -->
+            <!-- 7. Registro Fotográfico -->
             <div class="form-group">
                 <label>📸 Registro Fotográfico</label>
                 <div class="photo-section">
@@ -146,7 +173,7 @@
                 </div>
             </div>
 
-            <!-- 6. Porcentaje de Avance -->
+            <!-- 8. Porcentaje de Avance -->
             <div class="form-group">
                 <label for="avance">📊 Porcentaje de Avance</label>
                 <div class="percentage-input">
@@ -155,13 +182,13 @@
                 </div>
             </div>
 
-            <!-- 7. Observación -->
+            <!-- 9. Observación -->
             <div class="form-group">
                 <label for="observacion">📝 Observación</label>
                 <textarea id="observacion" name="observacion" rows="4" placeholder="Ingrese observaciones relevantes del avance..."></textarea>
             </div>
 
-            <!-- 8. Supervisor -->
+            <!-- 10. Supervisor -->
             <div class="form-group">
                 <label for="supervisor">👷 Supervisor Responsable</label>
                 <input type="text" id="supervisor" name="supervisor" placeholder="Nombre del supervisor..." required>
@@ -232,6 +259,14 @@
                 this.value = 100;
             } else if (valor < 0) {
                 this.value = 0;
+            }
+        });
+
+        // Validación de días de trabajo (mínimo 1)
+        document.getElementById('dias-trabajo').addEventListener('input', function() {
+            const valor = parseInt(this.value);
+            if (valor < 1) {
+                this.value = 1;
             }
         });
     </script>
