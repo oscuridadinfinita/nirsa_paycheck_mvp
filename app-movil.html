@@ -5,350 +5,235 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NIRSA PayCheck - App Móvil</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            max-width: 800px;
+            margin: 0 auto;
             padding: 20px;
+            background-color: #f5f5f5;
         }
-        
-        .phone-container {
-            width: 100%;
-            max-width: 375px;
-            height: 812px;
-            background: #000;
-            border-radius: 40px;
-            padding: 10px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        .form-container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        
-        .phone {
-            width: 100%;
-            height: 100%;
-            background: #fff;
-            border-radius: 30px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .status-bar {
-            background: #f8f9fa;
-            padding: 8px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
-        }
-        
-        .app-header {
-            background: linear-gradient(135deg, #2c3e50, #3498db);
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .app-header h1 {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-        
-        .app-header p {
-            font-size: 14px;
-            opacity: 0.8;
-        }
-        
-        .app-content {
-            padding: 20px;
-            height: calc(100% - 140px);
-            overflow-y: auto;
-        }
-        
         .form-group {
             margin-bottom: 20px;
         }
-        
-        .form-group label {
+        label {
             display: block;
-            font-weight: 600;
+            font-weight: bold;
             margin-bottom: 8px;
-            color: #2c3e50;
+            color: #333;
         }
-        
-        .form-group select,
-        .form-group input,
-        .form-group textarea {
+        select, input[type="text"], input[type="number"], textarea {
             width: 100%;
             padding: 12px;
-            border: 2px solid #e1e8ed;
-            border-radius: 8px;
-            font-size: 14px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
         }
-        
-        .form-group select:focus,
-        .form-group input:focus,
-        .form-group textarea:focus {
+        select:focus, input:focus, textarea:focus {
             outline: none;
-            border-color: #3498db;
+            border-color: #007bff;
         }
-        
-        .photo-upload {
-            border: 2px dashed #bdc3c7;
-            border-radius: 12px;
+        .photo-section {
+            border: 2px dashed #ddd;
             padding: 20px;
             text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 10px;
+            border-radius: 6px;
+            margin: 15px 0;
         }
-        
-        .photo-upload:hover {
-            border-color: #3498db;
-            background: #f8f9fa;
-        }
-        
-        .photo-upload.has-photo {
-            border-color: #27ae60;
-            background: #d5f4e6;
-        }
-        
-        .progress-container {
-            margin: 20px 0;
-        }
-        
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: #ecf0f1;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #3498db, #2ecc71);
-            transition: width 0.3s ease;
-        }
-        
-        .progress-text {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 5px;
-            font-size: 12px;
-            color: #7f8c8d;
-        }
-        
-        .btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #3498db, #2ecc71);
+        .photo-btn {
+            background: #28a745;
             color: white;
+            padding: 10px 20px;
             border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
+            border-radius: 6px;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            margin: 5px;
+            font-size: 14px;
         }
-        
-        .btn:hover {
-            transform: translateY(-2px);
+        .photo-btn:hover {
+            background: #218838;
         }
-        
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
+        .submit-btn {
+            background: #007bff;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+            margin-top: 20px;
         }
-        
-        .location-info {
-            background: #e8f6f3;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 12px;
-            color: #16a085;
-            margin-bottom: 15px;
+        .submit-btn:hover {
+            background: #0056b3;
         }
-        
         .success-message {
             background: #d4edda;
             color: #155724;
             padding: 15px;
-            border-radius: 8px;
-            text-align: center;
+            border-radius: 6px;
             margin-top: 20px;
             display: none;
         }
-        
-        @media (max-width: 480px) {
-            .phone-container {
-                height: 100vh;
-                max-width: 100%;
-                border-radius: 0;
-            }
+        .percentage-input {
+            display: flex;
+            align-items: center;
+        }
+        .percentage-input input {
+            flex: 1;
+            margin-right: 10px;
+        }
+        .percentage-input span {
+            font-weight: bold;
+            color: #666;
         }
     </style>
 </head>
 <body>
-    <div class="phone-container">
-        <div class="phone">
-            <div class="status-bar">
-                <span>9:41</span>
-                <span>📶 📶 🔋</span>
+    <div class="form-container">
+        <h1>📋 NIRSA PayCheck - Nuevo Informe</h1>
+        
+        <form id="reporte-form">
+            <!-- 1. Contratista (desplegable) -->
+            <div class="form-group">
+                <label for="contratista">🏢 Contratista</label>
+                <select id="contratista" name="contratista" required>
+                    <option value="">Seleccione un contratista...</option>
+                    <option value="Constructora ABC">Constructora ABC</option>
+                    <option value="Ingeniería XYZ">Ingeniería XYZ</option>
+                    <option value="Construcciones del Litoral">Construcciones del Litoral</option>
+                    <option value="Obras Civiles SA">Obras Civiles SA</option>
+                </select>
             </div>
-            
-            <div class="app-header">
-                <h1>🏗️ NIRSA PayCheck</h1>
-                <p>Sistema de Verificación de Obras</p>
+
+            <!-- 2. Proyecto (se escribe) -->
+            <div class="form-group">
+                <label for="proyecto">🏗️ Proyecto</label>
+                <input type="text" id="proyecto" name="proyecto" placeholder="Ingrese el nombre del proyecto..." required>
             </div>
-            
-            <div class="app-content">
-                <div class="location-info">
-                    📍 <strong>Ubicación verificada:</strong> Planta Procesadora Posorja
-                </div>
-                
-                <div class="form-group">
-                    <label>🏢 Obra o Proyecto</label>
-                    <select id="obra">
-                        <option value="">Seleccionar obra...</option>
-                        <option value="planta-a">Planta Procesadora - Área A</option>
-                        <option value="bodega-b">Bodega Almacenamiento - Sector B</option>
-                        <option value="oficinas">Oficinas Administrativas</option>
-                        <option value="muelle">Muelle de Descarga</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label>📸 Fotos del Avance</label>
-                    <div class="photo-upload" onclick="addPhoto(1)">
-                        <div>📷 Tomar Foto 1</div>
-                    </div>
-                    <div class="photo-upload" onclick="addPhoto(2)">
-                        <div>📷 Tomar Foto 2</div>
-                    </div>
-                    <div class="photo-upload" onclick="addPhoto(3)">
-                        <div>📷 Tomar Foto 3</div>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label>📊 Porcentaje de Avance</label>
-                    <div class="progress-container">
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
-                        </div>
-                        <div class="progress-text">
-                            <span>0%</span>
-                            <span id="progressValue">0%</span>
-                        </div>
-                    </div>
-                    <input type="range" id="avance" min="0" max="100" value="0" oninput="updateProgress(this.value)">
-                </div>
-                
-                <div class="form-group">
-                    <label>📝 Observaciones</label>
-                    <textarea id="observaciones" rows="3" placeholder="Describa el avance realizado, materiales utilizados, próximos pasos..."></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label>✍️ Supervisor Responsable</label>
-                    <input type="text" id="supervisor" placeholder="Nombre completo del supervisor" value="Carlos Mendoza">
-                </div>
-                
-                <button class="btn" onclick="enviarReporte()" id="enviarBtn">
-                    📤 Enviar Reporte
-                </button>
-                
-                <div class="success-message" id="successMessage">
-                    ✅ ¡Reporte enviado con éxito!<br>
-                    <small>Número de reporte: #RC-2024-001</small>
+
+            <!-- 3. Presupuesto de la Obra en $ (se escribe) -->
+            <div class="form-group">
+                <label for="presupuesto">💰 Presupuesto de la Obra ($)</label>
+                <input type="number" id="presupuesto" name="presupuesto" placeholder="0.00" step="0.01" min="0" required>
+            </div>
+
+            <!-- 4. Tipo de informe (desplegable) -->
+            <div class="form-group">
+                <label for="tipo-informe">📄 Tipo de Informe</label>
+                <select id="tipo-informe" name="tipo-informe" required>
+                    <option value="">Seleccione tipo de informe...</option>
+                    <option value="preliminar">Informe Preliminar</option>
+                    <option value="liquidacion">Informe Liquidación</option>
+                </select>
+            </div>
+
+            <!-- 5. Registro Fotográfico -->
+            <div class="form-group">
+                <label>📸 Registro Fotográfico</label>
+                <div class="photo-section">
+                    <p>Tome hasta 3 fotografías del avance:</p>
+                    <button type="button" class="photo-btn" onclick="tomarFoto(1)">📷 Tomar Foto 1</button>
+                    <button type="button" class="photo-btn" onclick="tomarFoto(2)">📷 Tomar Foto 2</button>
+                    <button type="button" class="photo-btn" onclick="tomarFoto(3)">📷 Tomar Foto 3</button>
+                    <div id="fotos-tomadas" style="margin-top: 15px;"></div>
                 </div>
             </div>
+
+            <!-- 6. Porcentaje de Avance -->
+            <div class="form-group">
+                <label for="avance">📊 Porcentaje de Avance</label>
+                <div class="percentage-input">
+                    <input type="number" id="avance" name="avance" min="0" max="100" placeholder="0" required>
+                    <span>%</span>
+                </div>
+            </div>
+
+            <!-- 7. Observación -->
+            <div class="form-group">
+                <label for="observacion">📝 Observación</label>
+                <textarea id="observacion" name="observacion" rows="4" placeholder="Ingrese observaciones relevantes del avance..."></textarea>
+            </div>
+
+            <!-- 8. Supervisor -->
+            <div class="form-group">
+                <label for="supervisor">👷 Supervisor Responsable</label>
+                <input type="text" id="supervisor" name="supervisor" placeholder="Nombre del supervisor..." required>
+            </div>
+
+            <button type="submit" class="submit-btn">✅ Enviar Reporte</button>
+        </form>
+
+        <div id="success-message" class="success-message">
+            ✅ ¡Reporte enviado con éxito!<br>
+            Número de reporte: <span id="reporte-numero"></span>
         </div>
     </div>
 
     <script>
-        let photosTaken = 0;
-        
-        function addPhoto(photoNumber) {
-            const photoElements = document.querySelectorAll('.photo-upload');
-            if (photoElements[photoNumber - 1].classList.contains('has-photo')) {
-                photoElements[photoNumber - 1].classList.remove('has-photo');
-                photoElements[photoNumber - 1].innerHTML = `📷 Tomar Foto ${photoNumber}`;
-                photosTaken--;
-            } else {
-                photoElements[photoNumber - 1].classList.add('has-photo');
-                photoElements[photoNumber - 1].innerHTML = `✅ Foto ${photoNumber} tomada`;
-                photosTaken++;
+        // Función para simular toma de fotos
+        function tomarFoto(numero) {
+            const fotosDiv = document.getElementById('fotos-tomadas');
+            const fotoExistente = document.getElementById(`foto-${numero}`);
+            
+            if (fotoExistente) {
+                fotoExistente.remove();
             }
-            updateSendButton();
+            
+            const fotoElement = document.createElement('div');
+            fotoElement.id = `foto-${numero}`;
+            fotoElement.style.cssText = 'margin: 10px 0; padding: 10px; background: #e8f5e8; border-radius: 4px;';
+            fotoElement.innerHTML = `📷 Foto ${numero} tomada - ${new Date().toLocaleString()}`;
+            fotosDiv.appendChild(fotoElement);
         }
-        
-        function updateProgress(value) {
-            document.getElementById('progressFill').style.width = value + '%';
-            document.getElementById('progressValue').textContent = value + '%';
-            document.querySelector('.progress-text span').textContent = value + '%';
+
+        // Función para generar número de reporte
+        function generarNumeroReporte() {
+            const fecha = new Date();
+            const año = fecha.getFullYear();
+            const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+            const dia = String(fecha.getDate()).padStart(2, '0');
+            const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+            return `RC-${año}${mes}${dia}-${random}`;
         }
-        
-        function updateSendButton() {
-            const obra = document.getElementById('obra').value;
-            const avance = document.getElementById('avance').value;
-            const supervisor = document.getElementById('supervisor').value;
-            const enviarBtn = document.getElementById('enviarBtn');
+
+        // Manejo del envío del formulario
+        document.getElementById('reporte-form').addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            if (obra && avance > 0 && supervisor && photosTaken > 0) {
-                enviarBtn.disabled = false;
-            } else {
-                enviarBtn.disabled = true;
-            }
-        }
-        
-        function enviarReporte() {
-            const obra = document.getElementById('obra').value;
-            const avance = document.getElementById('avance').value;
-            const observaciones = document.getElementById('observaciones').value;
-            const supervisor = document.getElementById('supervisor').value;
+            // Simular envío del formulario
+            const numeroReporte = generarNumeroReporte();
+            document.getElementById('reporte-numero').textContent = numeroReporte;
+            document.getElementById('success-message').style.display = 'block';
             
-            // Simular envío del reporte
-            const reporte = {
-                id: 'RC-2024-001',
-                obra: obra,
-                avance: avance,
-                observaciones: observaciones,
-                supervisor: supervisor,
-                fotos: photosTaken,
-                ubicacion: 'Planta Procesadora Posorja',
-                fecha: new Date().toLocaleString('es-EC')
-            };
+            // Scroll hasta el mensaje de éxito
+            document.getElementById('success-message').scrollIntoView({ behavior: 'smooth' });
             
-            // Guardar en localStorage para que el dashboard pueda leerlo
-            localStorage.setItem('ultimoReporte', JSON.stringify(reporte));
-            
-            // Mostrar mensaje de éxito
-            document.getElementById('successMessage').style.display = 'block';
-            document.getElementById('enviarBtn').textContent = '✅ Reporte Enviado';
-            document.getElementById('enviarBtn').disabled = true;
-            
-            // Redirigir al dashboard después de 2 segundos
+            // Opcional: Resetear el formulario después de 3 segundos
             setTimeout(() => {
-                window.open('dashboard.html', '_blank');
-            }, 2000);
-        }
-        
-        // Event listeners
-        document.getElementById('obra').addEventListener('change', updateSendButton);
-        document.getElementById('supervisor').addEventListener('input', updateSendButton);
-        
-        // Inicializar
-        updateSendButton();
+                if (confirm('¿Desea crear un nuevo reporte?')) {
+                    this.reset();
+                    document.getElementById('fotos-tomadas').innerHTML = '';
+                    document.getElementById('success-message').style.display = 'none';
+                }
+            }, 3000);
+        });
+
+        // Validación del porcentaje de avance
+        document.getElementById('avance').addEventListener('input', function() {
+            const valor = parseInt(this.value);
+            if (valor > 100) {
+                this.value = 100;
+            } else if (valor < 0) {
+                this.value = 0;
+            }
+        });
     </script>
 </body>
 </html>
